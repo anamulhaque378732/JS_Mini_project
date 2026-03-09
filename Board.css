@@ -19,6 +19,7 @@ body {
   border: 2px solid #333;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
 }
 
 .square {
@@ -28,8 +29,12 @@ body {
 }
 
 .white {
-  background: #d6d2cb;
+  background: #f1f0ed;
 }
 .black {
-  background: #c78926;
+  background: #eb9204;
+}
+.pieces {
+  height: 80px;
+  width: 80px;
 }
