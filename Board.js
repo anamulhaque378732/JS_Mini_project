@@ -1,6 +1,5 @@
-
+let selectedPieces = null;
 let board = document.getElementById('board');
-
 
 let pieces = {
     black: [
@@ -12,7 +11,6 @@ let pieces = {
         "https://upload.wikimedia.org/wikipedia/commons/1/19/BLACK_CHESS_BISHOP.svg",
         "https://upload.wikimedia.org/wikipedia/commons/7/70/BLACK_CHESS_KNIGHT.svg",
         "https://upload.wikimedia.org/wikipedia/commons/1/11/BLACK_CHESS_ROOK.svg"],
-
 
     blackP: "https://upload.wikimedia.org/wikipedia/commons/5/55/BLACK_CHESS_PAWN.svg",
 
@@ -26,8 +24,6 @@ let pieces = {
         "https://upload.wikimedia.org/wikipedia/commons/3/34/WHITE_CHESS_KNIGHT.svg",
         "https://upload.wikimedia.org/wikipedia/commons/a/a4/WHITE_CHESS_ROOK.svg"
 
-
-
     ],
     whiteP: "https://upload.wikimedia.org/wikipedia/commons/4/40/WHITE_CHESS_PAWN.svg"
 
@@ -35,8 +31,13 @@ let pieces = {
 
 for (let row = 0; row < 8; row++) {
     for (let col = 0; col < 8; col++) {
-        const squareDiv = document.createElement("div");
+
+        let squareDiv = document.createElement("div");
         squareDiv.classList.add("square");
+        squareDiv.dataset.row = row;
+        squareDiv.dataset.col = col;
+
+        // pieces sitting
         if ((row + col) % 2 === 0) {
             squareDiv.classList.add("white");
 
@@ -53,7 +54,34 @@ for (let row = 0; row < 8; row++) {
             squareDiv.innerHTML = `<img  src="${pieces.whiteP}" class="pieces">`
         } else if (row === 7) {
             squareDiv.innerHTML = `<img  src="${pieces.white[col]}" class="pieces">`
-        }
+        };
+
+
+
+        // access the div
+
+        squareDiv.addEventListener("click", function () {
+            // console.log("row No " + row);
+            // console.log("col No  " + col);
+            let piece = this.querySelector(".pieces");
+
+            if (piece) {
+                if (selectedPieces) {
+                    selectedPieces.classList.remove("selected");
+                };
+
+                selectedPieces = piece;
+                piece.classList.add("selected");
+                return;
+            };
+
+            if (selectedPieces) {
+                this.appendChild(selectedPieces);
+                selectedPieces.classList.remove("selected");
+                selectedPieces = null;
+            }
+        });
+
 
         board.appendChild(squareDiv);
     };
